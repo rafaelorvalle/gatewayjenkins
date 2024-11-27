@@ -6,7 +6,7 @@ pipeline {
     stages {
         stage('Verificar Repositório') {
             steps {
-                checkout([$class: 'GitSCM', branches: [[name: '*/master']], useRemoteConfigs:[[url: 'https://github.com/adssenacgit/arquivosBackendNest.git']]])
+                checkout([$class: 'GitSCM', branches: [[name: '*/master']], useRemoteConfigs:[[url: 'https://github.com/rafaelorvalle/gatewayjenkins.git']]])
             }
         }
         //stage('Instalar Dependências') {
@@ -19,7 +19,7 @@ pipeline {
         stage('Construir Imagem Docker') {
             steps {
                 script {
-                    def appName = 'arquivosbackendnest'
+                    def appName = 'mcdonaldsfila'
                     def imageTag = "${appName}:${env.BUILD_ID}"
 
                     // Construir a imagem Docker
@@ -31,7 +31,7 @@ pipeline {
         stage('Fazer Deploy') {
             steps {
                 script {
-                    def appName = 'arquivosbackendnest'
+                    def appName = 'mcdonaldsfila'
                     def imageTag = "${appName}:${env.BUILD_ID}"
                     // Parar e remover o container existente, se houver
                     bat "docker stop ${appName} || exit 0"
